@@ -56,7 +56,7 @@ void setup() {
   conectarMqtt();
 }
 
-void enviarParaAThingSpeak() {
+void enviarParaThingSpeak() {
   float temperatura = sensor.getTemperature();
   float umidade = sensor.getHumidity();
 
@@ -84,14 +84,15 @@ void enviarParaAThingSpeak() {
   }
 }
 
-void enviarParaOMqtt() {
+void enviarParaMqtt() {
   float temperatura2 = sensor.getTemperature();
   float umidade2 = sensor.getHumidity();
-  mqttClient.publish(topic, ("{\"Temperatura\": "+ String(temperatura2)+"Cº" +", \"Umidade\": "+ String(umidade2) +"%" +"}").c_str());
+  mqttClient.publish(topic, ("{\"temperatura\": "+ String(temperatura2) +", \"umidade\": "+ String(umidade2) +"}").c_str());
 }
 
 void loop() {
   delay(500);
-  enviarParaAThingSpeak();
-  enviarParaOMqtt();
+  enviarParaThingSpeak();
+  enviarParaMqtt();
 }
+
